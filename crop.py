@@ -7,7 +7,7 @@ def get_abs_listdir(DIR):
     '''
     Returns the absolute or relative addresses.
     '''
-    return [os.path.join(DIR, frame) for frame in os.listdir(DIR)]
+    return sorted([os.path.join(DIR, frame) for frame in os.listdir(DIR)])
 
 
 if __name__ == '__main__':

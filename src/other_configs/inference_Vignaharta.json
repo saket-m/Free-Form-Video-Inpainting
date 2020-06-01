@@ -24,7 +24,7 @@
                     "type": "video",
                     "w": 400,
                     "h": 400,
-                    "sample_length": 34,
+                    "sample_length": 30,
                     "random_sample": false,
                     "random_sample_mask": false,
                     "mask_type": "random",

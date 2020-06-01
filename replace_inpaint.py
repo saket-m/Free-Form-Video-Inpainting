@@ -20,7 +20,10 @@ if __name__ == '__main__':
     frames = get_abs_listdir(FRAMES_DIR)
     masks = get_abs_listdir(MASK_DIR)
 
-    op_frames = get_abs_listdir(OP_FRAMES_DIR)
+    for i in get_abs_listdir(OP_FRAMES_DIR):
+        if 'input' not in i:
+            op_frames.extend(get_abs_listdir(i))
+
     for i in get_abs_listdir(CROP_MASK_DIR):
         crop_masks.extend(get_abs_listdir(i))
 
@@ -33,6 +36,7 @@ if __name__ == '__main__':
     for i in range(len(op_frames)):
         op_frame_path= op_frames[i]
         frame_path = frames[i]
+        print(i, op_frame_path, frame_path)
 
         op_frame = cv2.imread(op_frame_path)
         frame = cv2.imread(frame_path)
@@ -40,5 +44,8 @@ if __name__ == '__main__':
         mask1 = crop_mask == 0
         mask2 = mask == 0
 
-        frame[:400, 1920-400:, :][mask2] = op_frame[mask1]
+        print(frame.shape, op_frame.shape)
+        frame[:400, 1920-400:, :][mask1] = op_frame[mask1]
         cv2.imwrite(frame_path, frame)
+
+    os.system(f'ffmpeg -i {FRAMES_DIR}/%05d.png -b:v 10M out_10M.mp4')
