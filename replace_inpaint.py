@@ -14,18 +14,29 @@ if __name__ == '__main__':
     CROP_MASK_DIR = sys.argv[2]
     FRAMES_DIR = sys.argv[3]
     MASK_DIR = sys.argv[4]
+    OVERLAPING_FRAMES = 4
 
     op_frames = []
     crop_masks= []
     frames = get_abs_listdir(FRAMES_DIR)
     masks = get_abs_listdir(MASK_DIR)
 
+    start = True
     for i in get_abs_listdir(OP_FRAMES_DIR):
         if 'input' not in i:
-            op_frames.extend(get_abs_listdir(i))
+            if start:
+                op_frames.extend(get_abs_listdir(i))
+                start = False
+            else:
+                op_frames.extend(get_abs_listdir(i)[OVERLAPING_FRAMES:])
 
+    start = True
     for i in get_abs_listdir(CROP_MASK_DIR):
-        crop_masks.extend(get_abs_listdir(i))
+        if start:
+            crop_masks.extend(get_abs_listdir(i))
+            start = False
+        else:
+            crop_masks.extend(get_abs_listdir(i)[OVERLAPING_FRAMES:])
 
     crop_mask = cv2.imread(crop_masks[0])
     mask = cv2.imread(masks[0])
@@ -44,7 +55,6 @@ if __name__ == '__main__':
         mask1 = crop_mask == 0
         mask2 = mask == 0
 
-        print(frame.shape, op_frame.shape)
         frame[:400, 1920-400:, :][mask1] = op_frame[mask1]
         cv2.imwrite(frame_path, frame)
 

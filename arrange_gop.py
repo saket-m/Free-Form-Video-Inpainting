@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import os
 import sys
+import math
 
 def get_abs_listdir(DIR):
     '''
@@ -15,13 +16,14 @@ if __name__ == '__main__':
     IN_FRAMES_DIR = sys.argv[3]
     IN_MASK_DIR = sys.argv[4]
     L_GOP = int(sys.argv[5])
+    OVERLAPING_FRAMES = 4
 
     crop_frames = get_abs_listdir(CROP_FRAMES_DIR)
     crop_masks = get_abs_listdir(CROP_MASK_DIR)
     in_frames = get_abs_listdir(IN_FRAMES_DIR)
     in_masks = get_abs_listdir(IN_MASK_DIR)
 
-    n_gop = len(crop_frames) // L_GOP
+    n_gop = math.ceil(len(crop_frames) / L_GOP) + math.ceil(((math.ceil(len(crop_frames) / L_GOP) - 1) * OVERLAPING_FRAMES) / L_GOP) 
 
     start = 0
     end = 0
@@ -43,4 +45,4 @@ if __name__ == '__main__':
         for mask_path in crop_masks[start:end]:
              os.system(f'cp {mask_path} {IN_MASK_DIR}/{i}')
 
-        start = end
+        start = end - OVERLAPING_FRAMES
