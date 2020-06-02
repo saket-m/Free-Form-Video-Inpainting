@@ -1,4 +1,5 @@
 import os
+import time
 import json
 from copy import copy
 
@@ -129,6 +130,10 @@ def override_data_setting(config, dataset_config):
 
 
 if __name__ == '__main__':
+    f = open('../log.time', 'a')
+    start_time = time.time()
+    os.system(f'rm test_outputs -rf')
+
     parser = argparse.ArgumentParser(description='PyTorch Template')
     parser.add_argument('-c', '--config', default=None, type=str,
                         help='config file path (default: None)')
@@ -164,3 +169,6 @@ if __name__ == '__main__':
         config = override_data_setting(config, dataset_config)
 
     main(config, args.resume, args.output_root_dir, args.pretrained_path)
+
+    print(f'time taken for inference = {time.time() - start_time}')
+    f.write(f'time taken for inference = {time.time() - start_time}\n')

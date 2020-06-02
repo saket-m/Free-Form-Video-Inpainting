@@ -1,0 +1,4 @@
+time taken for extracting the frames = 1420.7160246372223
+time taken for populating mask = 169.63991117477417
+time taken by arrange_gop.py = 36.65451717376709
+time taken for inference = 679.74085521698
