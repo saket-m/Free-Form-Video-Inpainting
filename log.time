@@ -1,4 +1,7 @@
-time taken for extracting the frames = 1420.7160246372223
-time taken for populating mask = 169.63991117477417
-time taken by arrange_gop.py = 36.65451717376709
-time taken for inference = 679.74085521698
+time taken for extracting the frames = 152.64506673812866
+time taken for populating mask = 15.695845603942871
+time taken for cropping frames and masks = 184.56149911880493
+time taken by arrange_gop.py = 37.99321961402893
+time taken for inference = 676.4130554199219
+time taken to replace inpainted part = 445.7640495300293
+time taken to encode o/p video = 121.0225338935852

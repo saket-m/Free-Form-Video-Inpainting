@@ -1,6 +1,7 @@
 #!/bin/bash
 
-VIDEO_NAME=../show_set_mere_sai_ep646_20200316T115154.MP4
+VIDEO_NAME=../Vignaharta_Ganesh_File_3.mp4
+OP_VIDEO_NAME=Vignaharta_Ganesh_File_3_30_12.mp4
 MASK_PATH=../Vignaharta_Ganesh_File_3.png
 FRAMES_DIR=dataset/examples/Vignaharta/Vignaharta_full/JPEGImages/input/
 MASK_DIR=dataset/examples/Vignaharta/Vignaharta_full/object_masks/input
@@ -14,9 +15,11 @@ L_GOP=30
 OVERLAPING_FRAMES=12
 CROP_SIZE=400
 
-python extract_frames.py $VIDEO_NAME $FRAMES_DIR
-python populate_mask.py $FRAMES_DIR $MASK_DIR $MASK_PATH
-python crop.py $FRAMES_DIR $MASK_DIR $CROP_FRAMES_DIR $CROP_MASK_DIR $CROP_SIZE
+# python extract_frames.py $VIDEO_NAME $FRAMES_DIR
+
+# python populate_mask.py $FRAMES_DIR $MASK_DIR $MASK_PATH
+
+# python crop.py $FRAMES_DIR $MASK_DIR $CROP_FRAMES_DIR $CROP_MASK_DIR $CROP_SIZE
 
 python arrange_gop.py $CROP_FRAMES_DIR $CROP_MASK_DIR $IN_FRAMES_DIR $IN_MASK_DIR $L_GOP $OVERLAPING_FRAMES
 
@@ -26,4 +29,4 @@ source infer_V.sh
 
 cd ..
 
-python replace_inpaint.py $OP_FRAMES_DIR $IP_MASK_DIR $FRAMES_DIR $MASK_DIR $CROP_SIZE $OVERLAPING_FRAMES
+python replace_inpaint.py $OP_FRAMES_DIR $IP_MASK_DIR $FRAMES_DIR $MASK_DIR $CROP_SIZE $OVERLAPING_FRAMES $OP_VIDEO_NAME

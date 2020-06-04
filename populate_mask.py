@@ -17,7 +17,9 @@ if __name__ == '__main__':
     MASK_DIR = sys.argv[2]
     MASK_PATH = sys.argv[3]
 
-    os.system(f'rm {MASK_DIR}/* -rf')
+    if os.path.exists(MASK_DIR):
+        os.system(f'rm {MASK_DIR} -rf')
+    os.makedirs(MASK_DIR)
 
     if MASK_PATH[-1] == '/':
         mask_name = MASK_PATH.split('/')[-2]

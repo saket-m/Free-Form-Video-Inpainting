@@ -20,7 +20,7 @@ if __name__ == '__main__':
     MASK_DIR = sys.argv[4]
     CROP_SIZE = int(sys.argv[5])
     OVERLAPING_FRAMES = int(sys.argv[6])
-    OP_VIDEO_NAME = 'out_10M.mp4'
+    OP_VIDEO_NAME = sys.argv[7]
 
     op_frames = []
     crop_masks= []
@@ -72,7 +72,8 @@ if __name__ == '__main__':
 
     if os.path.exists(OP_VIDEO_NAME):
         os.system(f'rm {OP_VIDEO_NAME}')
-    os.system(f'ffmpeg -i {FRAMES_DIR}/%05d.png -b:v 10M {OP_VIDEO_NAME}')
+    print(f'ffmpeg -i {FRAMES_DIR}/%05d.png -c:v libx264 -vf fps=25 -pix_fmt yuv420p -b:v 10M {OP_VIDEO_NAME}')
+    os.system(f'ffmpeg -i {FRAMES_DIR}/%05d.png -c:v libx264 -vf fps=25 -pix_fmt yuv420p -b:v 10M {OP_VIDEO_NAME}')
 
     time_taken_encode =  time.time() - replace_end_time
     
@@ -81,3 +82,4 @@ if __name__ == '__main__':
     print('------------------------------------------------------------------------------------------------------')
     f.write(f'time taken to replace inpainted part = {time_taken_replace}\n')
     f.write(f'time taken to encode o/p video = {time_taken_encode}\n')
+    print(f'ffmpeg -i {FRAMES_DIR}/%05d.png -c:v libx264 -vf fps=25 -pix_fmt yuv420p -b:v 10M {OP_VIDEO_NAME}')

@@ -22,8 +22,12 @@ if __name__ == '__main__':
     L_GOP = int(sys.argv[5])
     OVERLAPING_FRAMES = int(sys.argv[6])
 
-    os.system(f'rm {IN_FRAMES_DIR}/* -rf')
-    os.system(f'rm {IN_MASK_DIR}/* -rf')
+    if os.path.exists(IN_FRAMES_DIR):
+        os.system(f'rm {IN_FRAMES_DIR} -rf')
+    os.makedirs(IN_FRAMES_DIR)
+    if os.path.exists(IN_MASK_DIR):
+        os.system(f'rm {IN_MASK_DIR} -rf')
+    os.makedirs(IN_MASK_DIR)
 
     crop_frames = get_abs_listdir(CROP_FRAMES_DIR)
     crop_masks = get_abs_listdir(CROP_MASK_DIR)

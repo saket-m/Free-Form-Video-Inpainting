@@ -21,8 +21,12 @@ if __name__ == '__main__':
     CROP_MASK_DIR = sys.argv[4]
     CROP_HW = int(sys.argv[5])
 
-    os.system(f'rm {CROP_FRAMES_DIR}/*'-rf)
-    os.system(f'rm {CROP_MASK_DIR}/*'-rf)
+    if os.path.exists(CROP_FRAMES_DIR):
+        os.system(f'rm {CROP_FRAMES_DIR} -rf')
+    os.makedirs(CROP_FRAMES_DIR)
+    if os.path.exists(CROP_MASK_DIR):
+        os.system(f'rm {CROP_MASK_DIR} -rf')
+    os.makedirs(CROP_MASK_DIR)
 
     frames = get_abs_listdir(FRAMES_DIR)
     masks = get_abs_listdir(MASK_DIR)
@@ -37,8 +41,8 @@ if __name__ == '__main__':
         cv2.imwrite(crop_frame_name, frame)
 
     for mask_name in masks:
-        crop_mask_name = os.path.join(CROP_MASK_DIR, frame_name)
-        mask_name = os.path.join(MASK_DIR, frame_name)
+        crop_mask_name = os.path.join(CROP_MASK_DIR, mask_name)
+        mask_name = os.path.join(MASK_DIR, mask_name)
         mask = cv2.imread(mask_name, 0)
         h, w = mask.shape
 
