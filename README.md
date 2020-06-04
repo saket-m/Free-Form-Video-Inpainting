@@ -1,3 +1,9 @@
+# Run inference for a video
+1. open video_inpaint.sh
+2. change the VIDEO_NAME parameter to the path of the i/p video
+3. change the OP_VIDEO_NAME parameter to the o/p video path to be produced
+4. source video_inpaint.sh
+
 # Learnable Gated Temporal Shift Module for Deep Video Inpainting
 
 Official Pytorch implementation of "Learnable Gated Temporal Shift Module for Deep Video Inpainting. Chang et al. BMVC 2019." [arXiv](https://arxiv.org/abs/1907.01131)
